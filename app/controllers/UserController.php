@@ -1,26 +1,38 @@
 <?php
 
 namespace app\controllers;
+
 use app\core\Controller;
-use app\models\User;
+use app\models\Team;
+use app\models\Player;
 
 class UserController extends Controller
 {
-    public function getUsers()
+    public function searchTeams($searchQuery)
     {
-        $userModel = new User();
+        // Instantiate Team model to fetch teams based on search query
+        $teamModel = new Team();
+        
+        // Fetch teams based on the search query
+        $teams = $teamModel->searchTeams($searchQuery);
+
+        // Set response headers and send JSON response
         header("Content-Type: application/json");
-        $users = $userModel->getAllUsers();
-        echo json_encode($users);
+        echo json_encode($teams);
         exit();
     }
 
-    public function saveUser() {
+    public function getPlayersByTeam($teamId)
+    {
+        // Instantiate Player model to fetch players for a specific team
+        $playerModel = new Player();
 
+        // Fetch players for the specified team
+        $players = $playerModel->getPlayersByTeam($teamId);
+
+        // Set response headers and send JSON response
+        header("Content-Type: application/json");
+        echo json_encode($players);
+        exit();
     }
-
-    public function viewUsers() {
-        
-    }
-
 }
