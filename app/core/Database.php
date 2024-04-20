@@ -30,5 +30,3 @@ Trait Database
     }
 
 }
-
-
